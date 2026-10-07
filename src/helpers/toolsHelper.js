@@ -12,7 +12,7 @@ export const showConfirmDialog = async (msg) => {
 
 export const formatRupiah = (amount) =>
   new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 })
-    .format(amount).replace(/\u00a0/g, ' ')
+    .format(amount).replaceAll('\u00a0', ' ')
 
 export const formatDate = (dateString) =>
   new Date(dateString.replace(' ', 'T')).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })

@@ -34,13 +34,15 @@ export const routes = [
   { path: '/:pathMatch(.*)*', component: NotFoundPage },
 ]
 
+function redirectFor(meta) {
+  const loggedIn = Boolean(getAccessToken())
+  if (meta.requiresAuth && !loggedIn) return '/auth/login'
+  if (meta.guest && loggedIn) return '/'
+  return ''
+}
+
 export function createAppRouter(history = createWebHistory()) {
   const router = createRouter({ history, routes })
-  router.beforeEach((to) => {
-    const loggedIn = Boolean(getAccessToken())
-    if (to.meta.requiresAuth && !loggedIn) return '/auth/login'
-    if (to.meta.guest && loggedIn) return '/'
-    return true
-  })
+  router.beforeEach((to) => redirectFor(to.meta) || true)
   return router
 }

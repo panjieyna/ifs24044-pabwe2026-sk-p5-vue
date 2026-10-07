@@ -2,6 +2,12 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import * as api from '../api/aucationApi.js'
 
+async function run(flag, call) {
+  const res = await call()
+  flag.value = Boolean(res.success)
+  return res
+}
+
 export const useAucationsStore = defineStore('aucations', () => {
   const aucations = ref([])
   const aucation = ref(null)
@@ -19,11 +25,6 @@ export const useAucationsStore = defineStore('aucations', () => {
   async function loadAucation(id) {
     const res = await api.getAucation(id)
     if (res.success) aucation.value = res.data.aucation
-    return res
-  }
-  async function run(flag, call) {
-    const res = await call()
-    flag.value = Boolean(res.success)
     return res
   }
   const addAucation = (body) => run(isAucationAdd, () => api.addAucation(body))

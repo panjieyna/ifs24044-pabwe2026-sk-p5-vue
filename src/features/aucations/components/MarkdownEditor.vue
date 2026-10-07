@@ -19,7 +19,7 @@ const onInput = (event) => emit('update:modelValue', event.target.value)
 <template>
   <div class="space-y-2">
     <label :for="id" class="block text-sm font-semibold">{{ label }}</label>
-    <div class="flex gap-2" role="toolbar" aria-label="Format teks">
+    <div class="flex gap-2" role="group" aria-label="Format teks">
       <button v-for="t in tools" :key="t.key" type="button" :aria-label="t.label"
         class="min-h-11 min-w-11 rounded border border-stone-500 px-2 py-1 text-sm" @click="append(t.snippet)">{{ t.label }}</button>
     </div>

@@ -9,7 +9,8 @@ const cover = (file) => {
 
 export const getAucations = (filters = {}) => {
   const qs = new URLSearchParams(Object.entries(filters).map(([k, v]) => [k, Number(v)])).toString()
-  return requestJson(`/aucations${qs ? `?${qs}` : ''}`)
+  const query = qs ? `?${qs}` : ''
+  return requestJson(`/aucations${query}`)
 }
 export const getAucation = (id) => requestJson(`/aucations/${id}`)
 export const addAucation = (body) => requestJson('/aucations', send('POST', body))
