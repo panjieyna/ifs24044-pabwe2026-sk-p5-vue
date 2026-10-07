@@ -19,7 +19,10 @@ async function submit(event) {
 
 <template>
   <ModalShell title="Ubah sampul" @close="emit('close')">
-    <label for="cover-file" class="mb-2 block text-sm font-semibold">Pilih gambar sampul</label>
-    <input id="cover-file" type="file" accept="image/*" aria-label="File sampul" @change="submit" />
+    <label class="flex flex-col items-center gap-1 rounded-xl border-2 border-dashed border-brand/50 p-8 text-center transition hover:bg-brand/5 focus-within:ring-2 focus-within:ring-brand">
+      <input type="file" accept="image/*" aria-label="File sampul" class="sr-only" @change="submit" />
+      <span class="font-semibold text-brand">Klik untuk memilih gambar sampul</span>
+      <span class="text-sm text-stone-700">Format JPG atau PNG. Gambar langsung diunggah setelah dipilih.</span>
+    </label>
   </ModalShell>
 </template>

@@ -19,3 +19,11 @@ export const formatDate = (dateString) =>
 
 export const toApiTimestamp = (value) => `${value.replace('T', ' ')}:00`
 export const toInputTimestamp = (value) => value.slice(0, 16).replace(' ', 'T')
+
+export const photoUrl = (photo) => {
+  if (!photo) return ''
+  if (/^https?:\/\//.test(photo)) return photo
+  return `${new URL(DELCOM_BASEURL).origin}/${photo}`
+}
+
+export const isClosedAt = (value) => new Date(value.replace(' ', 'T')) <= new Date()

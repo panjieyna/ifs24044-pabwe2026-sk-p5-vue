@@ -3,7 +3,7 @@ import { normalizeResponse, requestJson } from '../../../helpers/apiHelper.js'
 const post = async (path, body) => {
   const res = await fetch(`${DELCOM_BASEURL}${path}`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
   })
   return normalizeResponse(await res.json())

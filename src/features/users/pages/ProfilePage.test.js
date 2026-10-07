@@ -5,7 +5,9 @@ import * as api from '../api/userApi.js'
 import { showSuccessDialog, showErrorDialog } from '../../../helpers/toolsHelper.js'
 
 vi.mock('../api/userApi.js')
-vi.mock('../../../helpers/toolsHelper.js', () => ({ showSuccessDialog: vi.fn(), showErrorDialog: vi.fn() }))
+vi.mock('../../../helpers/toolsHelper.js', async (orig) => ({
+  ...(await orig()), showSuccessDialog: vi.fn(), showErrorDialog: vi.fn(),
+}))
 
 const me = { success: true, data: { user: { name: 'Sari', email: 's@x.id' } } }
 
@@ -16,6 +18,7 @@ describe('ProfilePage', () => {
     api.updateMe.mockResolvedValue({ success: true, message: 'Tersimpan' })
     renderWithProviders(ProfilePage)
     await waitFor(() => expect(screen.getByLabelText('Nama')).toHaveValue('Sari'))
+    expect(screen.getByRole('heading', { name: 'Sari' })).toBeInTheDocument()
     await fireEvent.update(screen.getByLabelText('Nama'), 'Sari B')
     await fireEvent.update(screen.getByLabelText('Email'), 'b@x.id')
     await fireEvent.click(screen.getByRole('button', { name: 'Simpan profil' }))

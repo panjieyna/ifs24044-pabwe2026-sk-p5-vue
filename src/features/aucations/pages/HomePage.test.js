@@ -9,7 +9,7 @@ vi.mock('../../../helpers/toolsHelper.js', async (orig) => ({
   ...(await orig()), showSuccessDialog: vi.fn(), showErrorDialog: vi.fn(),
 }))
 
-const list = { success: true, data: { aucations: [{ id: 1, title: 'Lukisan', start_bid: 150000 }, { id: 2, title: 'Jam', start_bid: 5000 }] } }
+const list = { success: true, data: { aucations: [{ id: 1, title: 'Lukisan', start_bid: 150000, closed_at: '2099-12-01 00:00:00', cover: 'http://x/c.png', author: { name: 'Sari', photo: 'http://x/p.png' } }, { id: 2, title: 'Jam', start_bid: 5000, closed_at: '2000-01-01 00:00:00', author: { name: 'Budi', photo: '' } }] } }
 
 async function openAndFill() {
   await fireEvent.click(screen.getByRole('button', { name: 'Tambah lelang' }))
@@ -26,10 +26,18 @@ describe('HomePage', () => {
   it('shows cards, searches and switches tabs', async () => {
     renderWithProviders(HomePage)
     expect(await screen.findByText('Rp 150.000')).toBeInTheDocument()
+    expect(screen.getByText('Budi')).toBeInTheDocument()
+    expect(screen.getByText('Lelang selesai')).toBeInTheDocument()
+    expect(screen.getByText('Sedang berlangsung')).toBeInTheDocument()
+    expect(screen.getByRole('img', { name: 'Sampul Lukisan' })).toBeInTheDocument()
     await fireEvent.update(screen.getByLabelText('Cari lelang'), 'jam')
     expect(screen.queryByText('Lukisan')).not.toBeInTheDocument()
     await fireEvent.click(screen.getByRole('tab', { name: 'Lelang saya' }))
     expect(api.getAucations).toHaveBeenLastCalledWith({ is_me: true })
+    await fireEvent.click(screen.getByRole('tab', { name: 'Berlangsung' }))
+    expect(api.getAucations).toHaveBeenLastCalledWith({ is_closed: false })
+    await fireEvent.click(screen.getByRole('tab', { name: 'Selesai' }))
+    expect(api.getAucations).toHaveBeenLastCalledWith({ is_closed: true })
   })
 
   it('creates an aucation, closes the modal and reloads', async () => {

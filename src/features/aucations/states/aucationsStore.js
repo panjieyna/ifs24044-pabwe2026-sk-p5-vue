@@ -9,6 +9,7 @@ export const useAucationsStore = defineStore('aucations', () => {
   const isAucationChange = ref(false)
   const isAucationDelete = ref(false)
   const isBidAdd = ref(false)
+  const isBidDelete = ref(false)
 
   async function loadAucations(filters) {
     const res = await api.getAucations(filters)
@@ -29,10 +30,11 @@ export const useAucationsStore = defineStore('aucations', () => {
   const changeAucation = (id, body) => run(isAucationChange, () => api.changeAucation(id, body))
   const changeCover = (id, file) => run(isAucationChange, () => api.changeCover(id, file))
   const removeAucation = (id) => run(isAucationDelete, () => api.deleteAucation(id))
+  const removeBid = (id) => run(isBidDelete, () => api.deleteBid(id))
   const placeBid = (id, body) => run(isBidAdd, () => api.addBid(id, body))
 
   return {
-    aucations, aucation, isAucationAdd, isAucationChange, isAucationDelete, isBidAdd,
-    loadAucations, loadAucation, addAucation, changeAucation, changeCover, removeAucation, placeBid,
+    aucations, aucation, isAucationAdd, isAucationChange, isAucationDelete, isBidAdd, isBidDelete,
+    loadAucations, loadAucation, addAucation, changeAucation, changeCover, removeAucation, placeBid, removeBid,
   }
 })

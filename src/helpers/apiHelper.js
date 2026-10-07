@@ -7,6 +7,7 @@ export const removeAccessToken = () => localStorage.removeItem(TOKEN_KEY)
 export function fetchWithAuth(url, options = {}) {
   const token = getAccessToken()
   const headers = {
+    Accept: 'application/json',
     'Content-Type': 'application/json',
     ...(token && { Authorization: `Bearer ${token}` }),
     ...options.headers,

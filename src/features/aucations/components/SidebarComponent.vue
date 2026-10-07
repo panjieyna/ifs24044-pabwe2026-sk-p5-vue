@@ -1,9 +1,9 @@
 <template>
-  <aside class="w-40 shrink-0">
-    <nav aria-label="Menu samping" class="flex flex-col gap-2">
-      <RouterLink to="/" class="font-semibold text-brand underline">Lelang</RouterLink>
-      <RouterLink to="/users" class="font-semibold text-brand underline">Pengguna</RouterLink>
-      <RouterLink to="/profile" class="font-semibold text-brand underline">Profil</RouterLink>
+  <aside class="md:w-44 md:shrink-0">
+    <nav aria-label="Menu samping" class="flex gap-2 md:flex-col">
+      <RouterLink to="/" class="nav-link">Lelang</RouterLink>
+      <RouterLink to="/users" class="nav-link">Pengguna</RouterLink>
+      <RouterLink to="/profile" class="nav-link">Profil</RouterLink>
     </nav>
   </aside>
 </template>
