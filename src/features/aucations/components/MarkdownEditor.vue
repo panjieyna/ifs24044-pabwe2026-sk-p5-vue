@@ -19,10 +19,11 @@ const onInput = (event) => emit('update:modelValue', event.target.value)
 <template>
   <div class="space-y-2">
     <label :for="id" class="block text-sm font-semibold">{{ label }}</label>
-    <div class="flex gap-2" role="group" aria-label="Format teks">
+    <fieldset class="m-0 flex min-w-0 gap-2 border-0 p-0">
+      <legend class="sr-only">Format teks</legend>
       <button v-for="t in tools" :key="t.key" type="button" :aria-label="t.label"
         class="min-h-11 min-w-11 rounded border border-stone-500 px-2 py-1 text-sm" @click="append(t.snippet)">{{ t.label }}</button>
-    </div>
+    </fieldset>
     <textarea :id="id" :value="modelValue" rows="4" class="w-full rounded-lg border border-stone-500 px-3 py-2" @input="onInput" />
     <section aria-label="Pratinjau" class="rounded-lg bg-stone-100 p-3">
       <MarkdownViewer :source="modelValue" />

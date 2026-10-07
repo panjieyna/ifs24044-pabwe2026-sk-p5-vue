@@ -57,7 +57,7 @@ async function remove() {
     <MarkdownViewer :source="store.aucation.description" />
     <p class="font-semibold text-accent">Harga awal {{ formatRupiah(store.aucation.start_bid) }}</p>
     <p class="text-sm">Ditutup {{ formatDate(store.aucation.closed_at) }}</p>
-    <p v-if="isClosed" role="status" class="font-semibold text-red-800">Lelang sudah ditutup</p>
+    <output v-if="isClosed" class="block font-semibold text-red-800">Lelang sudah ditutup</output>
     <section aria-label="Penawaran">
       <h2 class="mb-2 text-lg font-bold">Penawaran ({{ sortedBids.length }})</h2>
       <p v-if="sortedBids.length === 0" class="text-stone-700">Belum ada penawaran</p>
